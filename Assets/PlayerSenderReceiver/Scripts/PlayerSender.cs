@@ -31,7 +31,7 @@ public class PlayerSender : MonoBehaviour
     void Update()
     {
         HandleMovement();
-        Jump();
+
 
         // if (!isMoving) return;
         Vector3 pos = transform.position;
@@ -44,6 +44,11 @@ public class PlayerSender : MonoBehaviour
 
         // Simulate sending to receiver
         receiver.ReceiveCompressedPosition(x, y, z);
+    }
+
+    void FixedUpdate()
+    {
+        Jump();
     }
 
     void HandleMovement()
