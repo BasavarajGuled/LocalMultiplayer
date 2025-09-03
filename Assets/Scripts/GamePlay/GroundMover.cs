@@ -4,13 +4,7 @@ using UnityEngine;
 
 public class GroundMover : MonoBehaviour
 {
-    public float moveSpeed;
     public Transform target;
-
-    void Start()
-    {
-
-    }
     void Update()
     {
         if (target == null)

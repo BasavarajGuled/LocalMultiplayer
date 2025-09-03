@@ -1,3 +1,4 @@
+using UnityEditor.Rendering;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -7,7 +8,6 @@ public class PlayerSender : MonoBehaviour
     public PlayerGroundCheck groundCheck;
 
     public float moveSpeed = 5f;      // WASD movement speed
-    public float scale = 100f;        // Steps per unit for compression
     public float jumpForce = 5f;      // Jump impulse force
 
     public static bool isMoving = false;
@@ -19,6 +19,7 @@ public class PlayerSender : MonoBehaviour
 
     private float lastTapTime = 0f;
     private float doubleTapThreshold = 0.3f; // Seconds allowed between taps
+    private Vector2 touchStartPos;
 
     void Awake()
     {
@@ -33,7 +34,7 @@ public class PlayerSender : MonoBehaviour
     void Update()
     {
         HandleInput();
-        SendCompressedPosition();
+        SendPosition();
         CheckPlayerPos();
     }
 
@@ -61,31 +62,34 @@ public class PlayerSender : MonoBehaviour
         {
             Touch touch = Input.GetTouch(0);
 
-            // Handle movement ONLY on the right half of the screen
-            if (touch.position.x > Screen.width * 0.5f)
-            {
-                if (touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved)
-                {
-                    if (touch.position.x > Screen.width * 0.75f)
-                        h = 1f;  // Far right -> move right
-                    else
-                        h = -1f; // Closer to center -> move left
-                }
-            }
-
             // Detect double-tap for jump
             if (touch.phase == TouchPhase.Began)
             {
+                touchStartPos = touch.position;
                 if (Time.time - lastTapTime < doubleTapThreshold && groundCheck.isGrounded)
                 {
                     jumpRequested = true; // Double-tap detected
                 }
                 lastTapTime = Time.time;
             }
+
+            // Handle movement ONLY on the right half of the screen
+            if (touch.position.x > Screen.width * 0.5f)
+            {
+                if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
+                {
+                    float deltaX = touch.position.x - touchStartPos.x;
+
+                    if (deltaX > 20f)      // Swiped right
+                        h = 1f;
+                    else if (deltaX < -20f) // Swiped left
+                        h = -1f;
+                }
+            }
         }
 #endif
 
-        moveInput = new Vector3(h, 0f, 1f).normalized * moveSpeed;
+        moveInput = new Vector3(h, 0f, 1f).normalized * GameManager.Instance.moveSpeed;
     }
 
     void HandleMovement()
@@ -101,29 +105,15 @@ public class PlayerSender : MonoBehaviour
     {
         if (jumpRequested)
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Force);
             receiver.RecieveForce(Vector3.up * jumpForce);
             jumpRequested = false;
         }
     }
 
-    void SendCompressedPosition()
+    void SendPosition()
     {
-        Vector3 pos = transform.position;
-
-        short x = CompressFloatSigned(pos.x);
-        short y = CompressFloatSigned(pos.y);
-        short z = CompressFloatSigned(pos.z);
-
-        Debug.Log($"Sending position: {pos} | Data size: {sizeof(short) * 3 * 8} bits");
-
-        // Simulate sending to receiver
-        receiver.ReceiveCompressedPosition(x, y, z);
-    }
-
-    short CompressFloatSigned(float value)
-    {
-        return (short)(value * scale);
+        receiver.ReceivePosition(transform.position);
     }
 
     private void CheckPlayerPos()
@@ -134,4 +124,6 @@ public class PlayerSender : MonoBehaviour
             GameManager.Instance.uIController.ShowGameOver();
         }
     }
+
+
 }

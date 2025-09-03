@@ -20,13 +20,13 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.56087565, g: 0.6611289, b: 0.8616352, a: 1}
+  m_AmbientSkyColor: {r: 0.1415093, g: 1, b: 0.28859532, a: 1}
   m_AmbientEquatorColor: {r: 0.6792453, g: 0.63916767, b: 0.2499109, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1
+  m_AmbientIntensity: 1.12
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.57232696, g: 0.57232696, b: 0.57232696, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 64b71177e3d1ef54596c39ec4fbc6f42, type: 2}
+  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 30528359}
-  m_IndirectSpecularColor: {r: 0.050047804, g: 0.10902667, b: 0.17456819, a: 1}
+  m_IndirectSpecularColor: {r: 0.18205184, g: 0.22774446, b: 0.30739543, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -493,7 +493,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14aa7f4e069ea684487e907a9b5579c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
   target: {fileID: 930202347}
 --- !u!1 &278684018
 GameObject:
@@ -614,7 +613,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14aa7f4e069ea684487e907a9b5579c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
   target: {fileID: 930202347}
 --- !u!1 &331847099
 GameObject:
@@ -735,7 +733,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14aa7f4e069ea684487e907a9b5579c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
   target: {fileID: 603273347}
 --- !u!1 &540842577
 GameObject:
@@ -933,7 +930,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14aa7f4e069ea684487e907a9b5579c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
   target: {fileID: 603273347}
 --- !u!1 &603273341
 GameObject:
@@ -968,8 +964,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88920d4d2a755c548b81d33fc4bed642, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smoothSpeed: 5
-  scale: 100
   remoteOffset: {x: -10, y: 0, z: 0}
   rigidbody: {fileID: 603273343}
 --- !u!54 &603273343
@@ -981,7 +975,7 @@ Rigidbody:
   m_GameObject: {fileID: 603273341}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 2
+  m_Drag: 0.5
   m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -1040,7 +1034,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9c3c402a63772da4a91c7adc5cdf49c5, type: 2}
+  - {fileID: 2100000, guid: f33d3c0971a292046b2d4faaf190006c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1142,7 +1136,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Score:'
+  m_text: 'Score: 0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1338,7 +1332,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14aa7f4e069ea684487e907a9b5579c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
   target: {fileID: 930202347}
 --- !u!1 &875990449
 GameObject:
@@ -1413,8 +1406,7 @@ MonoBehaviour:
   receiver: {fileID: 603273342}
   groundCheck: {fileID: 930202348}
   moveSpeed: 5
-  scale: 100
-  jumpForce: 10
+  jumpForce: 400
 --- !u!54 &930202343
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1424,7 +1416,7 @@ Rigidbody:
   m_GameObject: {fileID: 930202341}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 2
+  m_Drag: 0.5
   m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -1877,7 +1869,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14aa7f4e069ea684487e907a9b5579c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
   target: {fileID: 930202347}
 --- !u!1 &1240439727
 GameObject:
@@ -1998,7 +1989,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14aa7f4e069ea684487e907a9b5579c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
   target: {fileID: 603273347}
 --- !u!1 &1311513090
 GameObject:
@@ -2239,7 +2229,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14aa7f4e069ea684487e907a9b5579c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
   target: {fileID: 603273347}
 --- !u!1 &1540958592
 GameObject:
@@ -2409,7 +2398,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14aa7f4e069ea684487e907a9b5579c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
   target: {fileID: 930202347}
 --- !u!1 &1582212659
 GameObject:
@@ -2664,7 +2652,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14aa7f4e069ea684487e907a9b5579c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
   target: {fileID: 603273347}
 --- !u!1 &1630520611
 GameObject:
@@ -2863,8 +2850,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 114140958}
-  - {fileID: 2138306238}
   - {fileID: 1188411197}
+  - {fileID: 2138306238}
   - {fileID: 2056029394}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3016,6 +3003,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uIController: {fileID: 2138306239}
+  moveSpeed: 5
 --- !u!1 &2119379157
 GameObject:
   m_ObjectHideFlags: 0

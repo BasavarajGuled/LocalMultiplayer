@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public UIController uIController;
     public static string highScorePath;
 
+    public float moveSpeed = 5f;
+
     void Awake()
     {
         if (Instance == null)
@@ -21,7 +23,7 @@ public class GameManager : MonoBehaviour
             Destroy(this);
         }
 
-
+        InvokeRepeating("IncreaseSpeed", 10f, 10f);
     }
 
 
@@ -52,6 +54,15 @@ public class GameManager : MonoBehaviour
         };
         string json = JsonUtility.ToJson(hScore, true);
         File.WriteAllText(highScorePath, json);
+    }
+
+    private void IncreaseSpeed()
+    {
+        moveSpeed += 2f;
+        if (moveSpeed > 15)
+        {
+            moveSpeed = 5f;
+        }
     }
 }
 
